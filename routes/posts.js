@@ -16,17 +16,31 @@ router.get('/posts', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+// get a single post by id
+router.get('/posts/:id',async(req,res) =>{
+   try{
+    const id = req.params.id
+    const post = await Post.findById(id);
+    res.status(200).json(post)
+   }catch (err) {
+    console.log('Error fetching posts:', err);
+    res.status(500).json({ error: err.message });
+}
 
-// Create a new post
+})
 router.post('/posts', async (req, res) => {
     try {
-        const newPost = new Post(req.body); // Create a new Post document
-        const result = await newPost.save(); // Save the document to the `posts` collection
+        console.log('Incoming request body:', req.body); // Log incoming request body
+        const newPost = new Post(req.body);
+        const result = await newPost.save();
         res.status(201).json(result);
     } catch (err) {
-        res.status(500).json(err);
+        console.error('Error saving post:', err);
+        res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
 });
+
+
 
 // Get a single post by ID
 router.get('/posts/:id', async (req, res) => {

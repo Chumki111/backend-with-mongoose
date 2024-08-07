@@ -5,20 +5,30 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    content: {
+   
+    author: {
         type: String,
         required: true
     },
-    author: {
+   
+    image: {
+        type: String, // or Buffer if storing image data directly
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    shortDescription: {
+        type: String,
+        required: true
+    },
+    longDescription: {
         type: String,
         required: true
     },
     date: {
         type: Date,
         default: Date.now,
-    },
-    image: {
-        type: String, // or Buffer if storing image data directly
     },
 });
 
